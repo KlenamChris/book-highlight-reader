@@ -82,3 +82,43 @@ tags: [pdf-highlights]
 ## 📝 Troubleshooting & Validation Tips
 * **Duplicate Folder Created:** If running the script spawns a new folder instead of writing inside your live vault, ensure the path string strictly includes the `/Documents/` sub-folder configuration masked by Apple's iCloud cloud container.
 * **Command Not Found:** If pointing directly to the `/Applications/...` line throws paths errors, ensure Calibre is installed inside your default macOS applications storage directory.
+* **Command Not Found:** If pointing directly to the `/Applications/...` line throws paths errors, ensure Calibre is installed inside your default macOS applications storage directory.
+
+---
+
+## 🏎️ Optimized Unified Sync Engine (`sync.sh`)
+
+Instead of running three separate terminal commands every time you finish a reading session, you can execute the master orchestration shell script `sync.sh`. This script sequentially runs all three engines while safely validating background processes.
+
+### 1. Make the Script Executable
+Before firing up the script for the first time, give your macOS shell explicit permission to run it:
+```bash
+chmod +x sync.sh
+```
+
+### 2. Run the Complete Pipeline
+Simply call the script from your project root directory:
+```bash
+./sync.sh
+```
+
+---
+
+## 🧪 Advanced `uv` Integration (PEP 723)
+
+To ensure this project remains completely self-contained and reproducible without altering your global Mac environment, both `mac_preview_to_obsidian.py` and `adobe_to_obsidian.py` contain inline PEP 723 dependency metadata headers:
+
+```python
+# /// script
+# dependencies = [
+#   "pymupdf",
+# ]
+# ///
+```
+
+When you execute commands like `uv run adobe_to_obsidian.py`, `uv` instantly provisions an isolated, transient environment, downloads `PyMuPDF`, caches it, and executes your code instantly without needing local python virtual environments (`.venv`).
+
+---
+
+## 📄 License
+This project is open-source and available under the terms of the [MIT License](LICENSE).
